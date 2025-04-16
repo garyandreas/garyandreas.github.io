@@ -131,19 +131,12 @@ header h1 {
     width: 320px;
     height: 100vh;
     background-color: #1e293b;
-    /* Removed box-shadow to eliminate blue vertical line on left */
-    /* box-shadow: 2px 0 12px rgba(59, 130, 246, 0.7); */
-    padding: 40px 30px 80px 30px;
-    overflow-y: auto;
-    transition: left 0.4s ease;
+    transition: left 0.4s ease; /* Tambahkan transisi */
     z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 .nav-menu.active {
-    left: 0;
+    left: 0; /* Menu muncul dari kiri */
 }
 
 .nav-menu ul {

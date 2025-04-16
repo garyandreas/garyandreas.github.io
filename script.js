@@ -8,6 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     const loginContainer = document.getElementById('loginContainer');
 
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const closeMenu = document.getElementById('close-menu');
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.add('active');
+        navMenu.hidden = false;
+    });
+
+    closeMenu.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navMenu.hidden = true;
+    });
+
     // Hide forms initially
     postForm.style.display = 'none';
     projectForm.style.display = 'none';
@@ -15,9 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load existing posts and projects from backend
     async function loadPosts() {
         try {
-            const res = await fetch('/api/posts', { credentials: 'include' });
+            const res = await fetch('/api/posts', {
+                credentials: 'include', // Pastikan cookie dikirim
+            });
             if (res.status === 401) {
-                // Unauthorized, do not load posts
                 postsContainer.innerHTML = '<p>Please login to view posts.</p>';
                 return;
             }
@@ -77,10 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ title, content })
+                body: JSON.stringify({ title, content }),
             });
             if (res.ok) {
-                postForm.reset();
+                postForm.reset(); // Reset form setelah submit
                 loadPosts();
             } else if (res.status === 401) {
                 alert('Unauthorized. Please login.');
@@ -178,4 +193,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial load without authentication
     loadPosts();
     loadProjects();
-})
+});
