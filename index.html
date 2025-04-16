@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My Personal Blog</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <header>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu" type="button">
+    <button
+        class="hamburger"
+        id="hamburger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        type="button"
+    >
         <span></span>
         <span></span>
         <span></span>
     </button>
     <nav id="nav-menu" class="nav-menu" hidden>
+        <button id="close-menu" class="close-menu" aria-label="Close menu" type="button">&times;</button>
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About Me</a></li>
@@ -26,116 +34,134 @@
     <h1>My Personal Blog</h1>
 </header>
 
-    <main>
-        <div class="container">
-            <!-- Hero Section -->
-            <section id="home" class="hero">
-                <div class="hero-content">
-                    <img src="https://via.placeholder.com/180" alt="Gary Andreas" class="profile-img">
-                    <h2>Hello, I'm Gary Andreas</h2>
-                    <p>Student of Informatics Engineering. Welcome to my personal blog where I share my thoughts, projects, and experiences.</p>
-                </div>
-            </section>
+<main>
+    <div class="container">
+        <!-- Main content sections back here -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <img
+                    src="Photos/1.jpg"
+                    alt="Gary Andreas"
+                    class="profile-img"
+                />
+                <h2>Hello, I'm Gary Andreas</h2>
+                <p>
+                    Student of Informatics Engineering. Welcome to my personal blog
+                    where I share my thoughts, projects, and experiences.
+                </p>
+            </div>
+        </section>
 
-            <section id="about">
-                <h2>About Me</h2>
-                <p>Hi, I'm Gary Andreas, a student of Informatics Engineering major. This blog is where I share my thoughts and stories.</p>
-            </section>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                Hi, I'm Gary Andreas, a student of Informatics Engineering major.
+                This blog is where I share my thoughts and stories.
+            </p>
+        </section>
 
-            <section id="skills">
-                <h2>Skills</h2>
-                <div class="skills-container">
-                    <div class="skill">
-                        <h3>JavaScript</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h3>HTML & CSS</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 90%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h3>React</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 70%;"></div>
-                        </div>
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill">
+                    <h3>Programming</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 30%"></div>
                     </div>
                 </div>
-            </section>
-
-            <section id="posts">
-                <h2>Recent Posts</h2>
-
-                <!-- Form to add new post -->
-                <form id="postForm">
-                    <label for="postTitle">Title:</label>
-                    <input type="text" id="postTitle" name="postTitle" required>
-
-                    <label for="postContent">Content:</label>
-                    <textarea id="postContent" name="postContent" required></textarea>
-
-                    <label for="postDocuments">Add Documents (PDF, DOCX):</label>
-                    <input type="file" id="postDocuments" name="postDocuments" accept=".pdf,.doc,.docx" multiple>
-
-                    <label for="postImages">Add Images:</label>
-                    <input type="file" id="postImages" name="postImages" accept="image/*" multiple>
-
-                    <label for="postAudio">Add Audio:</label>
-                    <input type="file" id="postAudio" name="postAudio" accept="audio/*" multiple>
-
-                    <button type="submit">Add Post</button>
-                </form>
-
-                <!-- Container for blog posts -->
-                <div id="postsContainer">
-                    <article>
-                        <h3>First Blog Post</h3>
-                        <p>This is my first blog post. I'm excited to share my thoughts and experiences here!</p>
-                        <small>Posted on: February 1, 2025</small>
-                    </article>
-                </div>
-            </section>
-
-            <section id="projects">
-                <h2>Projects</h2>
-                <div class="projects-container">
-                    <div class="project-card">
-                        <h3>Project One</h3>
-                        <p>A brief description of project one.</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project Two</h3>
-                        <p>A brief description of project two.</p>
+                <div class="skill">
+                    <h3>English</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 40%"></div>
                     </div>
                 </div>
-            </section>
+                <div class="skill">
+                    <h3>Public Speaking</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 65%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <section id="contact">
-                <h2>Contact</h2>
-                <form id="contactForm">
-                    <label for="contactName">Name:</label>
-                    <input type="text" id="contactName" name="contactName" required>
+        <section id="posts">
+            <h2>Recent Posts</h2>
 
-                    <label for="contactEmail">Email:</label>
-                    <input type="email" id="contactEmail" name="contactEmail" required>
+            <!-- Form to add new post -->
+            <form id="postForm">
+                <label for="postTitle">Title:</label>
+                <input type="text" id="postTitle" name="postTitle" required />
 
-                    <label for="contactMessage">Message:</label>
-                    <textarea id="contactMessage" name="contactMessage" required></textarea>
+                <label for="postContent">Content:</label>
+                <textarea id="postContent" name="postContent" required></textarea>
 
-                    <button type="submit">Send</button>
-                </form>
-                <p>You can also reach me at: garyandreas0804@gmail.com</p>
-            </section>
-        </div>
-    </main>
+                <button type="submit">Add Post</button>
+            </form>
 
-    <footer>
-        <p>&copy; 2025 Gary Andreas</p>
-    </footer>
+            <!-- Container for blog posts -->
+            <div id="postsContainer">
+                <article>
+                    <h3>First Blog Post</h3>
+                    <p>
+                        This is my first blog post. I'm excited to share my thoughts and
+                        experiences here!
+                    </p>
+                    <small>Posted on: February 1, 2025</small>
+                </article>
+            </div>
+        </section>
 
-    <script src="script.js"></script>
+        <section id="projects">
+            <h2>Projects</h2>
+
+            <form id="projectForm">
+                <label for="projectTitle">Title:</label>
+                <input type="text" id="projectTitle" name="projectTitle" required />
+
+                <label for="projectDescription">Description:</label>
+                <textarea id="projectDescription" name="projectDescription" required></textarea>
+
+                <label for="projectLink">Link:</label>
+                <input type="url" id="projectLink" name="projectLink" placeholder="https://example.com" />
+
+                <button type="submit">Add Project</button>
+            </form>
+
+            <div class="projects-container">
+                <div class="project-card">
+                    <h3>Project One</h3>
+                    <p>A brief description of project one.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Project Two</h3>
+                    <p>A brief description of project two.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <form id="contactForm">
+                <label for="contactName">Name:</label>
+                <input type="text" id="contactName" name="contactName" required />
+
+                <label for="contactEmail">Email:</label>
+                <input type="email" id="contactEmail" name="contactEmail" required />
+
+                <label for="contactMessage">Message:</label>
+                <textarea id="contactMessage" name="contactMessage" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+            <p>You can also reach me at: garyandreas0804@gmail.com</p>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 Gary Andreas</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -9,11 +9,10 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    color: #0a0a0a; /* dark text for white background */
+    padding: 10px 0 0 0; /* reduced top padding to remove gap above header */
+    /* Removed max-width and margin to allow full width */
+    background-color: #000000;
+    color: #93c5fd; /* lighter text for dark background */
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
@@ -22,46 +21,74 @@ body {
 
 /* Container for main content */
 .container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 20px;
+    /* Removed max-width and margin to allow full width */
+    padding: 80px 0 0 0; /* add top padding to avoid content hidden behind fixed header */
     scroll-snap-type: y mandatory;
     scroll-padding-top: 60px;
 }
 
 /* Header Styles */
 header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 0; /* remove margin-bottom since fixed */
     background: linear-gradient(90deg, #0f172a, #1e293b);
-    padding: 30px 0;
-    border-radius: 8px;
+    padding: 20px 0; /* reduce vertical padding */
+    border-radius: 0; /* removed border radius for full width look */
     box-shadow: 0 0 15px #3b82f6;
+    z-index: 2000;
 }
 
 header h1 {
-    margin: 20px 0;
+    margin: 0;
     color: #3b82f6; /* elegant blue */
     font-weight: 700;
-    font-size: 3.2rem;
+    font-size: 2.5rem; /* reduced font size */
 }
 
 /* Hamburger Menu Styles */
 .hamburger {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 60px; /* adjusted to align vertically with nav menu items */
+    left: 30px; /* moved slightly to the right */
     width: 30px;
     height: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1001; /* ensure hamburger is on top */
+    pointer-events: auto; /* ensure it can receive pointer events */
     background: transparent;
     border: none;
     padding: 0;
+}
+
+.close-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+    color: #93c5fd;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.close-menu:hover {
+    color: #3b82f6;
 }
 
 .hamburger span {
@@ -100,14 +127,19 @@ header h1 {
 .nav-menu {
     position: fixed;
     top: 0;
-    left: -250px;
-    width: 220px;
+    left: -320px;
+    width: 320px;
     height: 100vh;
     background-color: #1e293b;
-    box-shadow: 2px 0 12px rgba(59, 130, 246, 0.7);
-    padding-top: 80px;
-    transition: left 0.3s ease;
+    /* Removed box-shadow to eliminate blue vertical line on left */
+    /* box-shadow: 2px 0 12px rgba(59, 130, 246, 0.7); */
+    padding: 40px 30px 80px 30px;
+    overflow-y: auto;
+    transition: left 0.4s ease;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .nav-menu.active {
@@ -116,21 +148,23 @@ header h1 {
 
 .nav-menu ul {
     list-style: none;
-    padding: 0 20px;
+    padding: 0;
+    width: 100%;
+    margin-top: 140px; /* increased margin to push down from hamburger and close icon */
 }
 
 .nav-menu ul li {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .nav-menu ul li a {
     color: #93c5fd;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: block;
-    padding: 10px 15px;
-    border-radius: 6px;
+    padding: 12px 20px;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
@@ -142,33 +176,49 @@ header h1 {
 
 /* Hide nav menu on larger screens and show inline */
 @media (min-width: 900px) {
+    /*
     .hamburger {
         display: none;
     }
+    */
+    .hamburger {
+        left: 30px !important;
+        top: 45px !important; /* lowered slightly for better alignment */
+    }
     .nav-menu {
-        position: static;
-        width: auto;
-        height: auto;
-        background: none;
-        box-shadow: none;
-        padding: 0;
-        display: block !important;
-        left: 0 !important;
+        position: fixed;
+        width: 320px;
+        height: 100vh;
+        background-color: #1e293b;
+        box-shadow: 2px 0 12px rgba(59, 130, 246, 0.7);
+        padding: 40px 30px 80px 30px;
+        overflow-y: auto;
+        transition: left 0.4s ease;
+        z-index: 1000;
+        left: -320px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nav-menu.active {
+        left: 0;
     }
     .nav-menu ul {
-        display: flex;
-        gap: 50px;
+        display: block;
+        gap: 0;
         padding: 0;
+        width: 100%;
+        margin-top: 100px; /* reduced margin to bring nav links closer */
     }
     .nav-menu ul li {
-        margin-bottom: 0;
+        margin-bottom: 25px;
     }
     .nav-menu ul li a {
-        padding: 8px 12px;
+        padding: 12px 20px;
         font-size: 1.3rem;
         color: #93c5fd;
         background: none;
-        border-radius: 6px;
+        border-radius: 8px;
     }
     .nav-menu ul li a:hover,
     .nav-menu ul li a.active {
@@ -203,9 +253,9 @@ nav a.active {
 
 /* Section Styles */
 section {
-    margin-bottom: 60px;
+    margin: 20px 0; /* consistent margin top and bottom */
     background-color: #1e293b;
-    padding: 40px 30px;
+    padding: 50px 40px; /* increased padding */
     border-radius: 12px;
     box-shadow: 0 0 20px #3b82f6aa;
     scroll-snap-align: start;
@@ -214,16 +264,16 @@ section {
     flex-direction: column;
     justify-content: center;
     transition: opacity 0.8s ease, transform 0.8s ease;
-    opacity: 0;
-    transform: translateY(30px);
+    /* opacity and transform removed for hero section only */
+    margin-top: 20px;
 }
 
 h2 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #60a5fa; /* medium blue */
-    border-bottom: 3px solid #3b82f6;
-    padding-bottom: 12px;
-    font-size: 2.4rem;
+    border-bottom: 4px solid #3b82f6;
+    padding-bottom: 16px;
+    font-size: 3rem; /* increased font size */
     font-weight: 700;
 }
 
@@ -246,7 +296,7 @@ article:hover {
 article h3 {
     margin-bottom: 15px;
     color: #bfdbfe; /* light blue */
-    font-size: 1.8rem;
+    font-size: 2.2rem; /* increased font size */
 }
 
 article small {
@@ -356,15 +406,18 @@ form#postForm button:hover {
 /* Hero Section */
 .hero {
     background: linear-gradient(90deg, #0f172a, #1e293b);
-    padding: 80px 40px;
+    padding: 60px 40px; /* reduced top padding from 80px to 60px */
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 0 25px #3b82f6aa;
-    margin-bottom: 60px;
+    margin-bottom: 30px; /* reduced margin-bottom to reduce gap to About Me */
+    opacity: 1 !important; /* make hero visible immediately */
+    transform: none !important; /* disable translateY animation */
+    min-height: 90vh; /* slightly reduced min-height */
 }
 
 .hero-content {
-    max-width: 700px;
+    max-width: 700px; /* reverted max-width to original */
     margin: 0 auto;
     color: #93c5fd;
 }
@@ -406,8 +459,8 @@ nav ul li a.active {
     background-color: #0f172a;
     border: 1px solid #3b82f6;
     border-radius: 12px;
-    padding: 25px;
-    width: 280px;
+    padding: 35px;
+    width: 320px; /* increased width */
     box-shadow: 0 0 12px #3b82f6aa;
     transition: transform 0.3s ease;
 }
@@ -419,7 +472,7 @@ nav ul li a.active {
 .skill h3 {
     margin-bottom: 15px;
     color: #bfdbfe;
-    font-size: 1.4rem;
+    font-size: 1.8rem; /* increased font size */
 }
 
 .progress-bar {
@@ -448,8 +501,8 @@ nav ul li a.active {
     background-color: #0f172a;
     border: 1px solid #3b82f6;
     border-radius: 12px;
-    padding: 30px;
-    width: 320px;
+    padding: 40px;
+    width: 360px; /* increased width */
     box-shadow: 0 0 12px #3b82f6aa;
     transition: transform 0.3s ease;
 }
