@@ -1,196 +1,109 @@
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
     const postsContainer = document.getElementById('postsContainer');
-
-    const projectForm = document.getElementById('projectForm');
     const projectsContainer = document.querySelector('.projects-container');
-
-    const loginForm = document.getElementById('loginForm');
-    const loginContainer = document.getElementById('loginContainer');
-
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     const closeMenu = document.getElementById('close-menu');
 
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.add('active');
-        navMenu.hidden = false;
+    // Store posts in localStorage
+    let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+
+    // Improved menu handling
+    const toggleMenu = () => {
+        const isExpanded = navMenu.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', !isExpanded);
+        navMenu.classList.toggle('active');
+        
+        if (!isExpanded) {
+            navMenu.removeAttribute('hidden');
+        } else {
+            setTimeout(() => {
+                navMenu.setAttribute('hidden', '');
+            }, 300); // match this with CSS transition time
+        }
+    };
+
+    hamburger.addEventListener('click', toggleMenu);
+    closeMenu.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking on navigation links
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            toggleMenu();
+        });
     });
 
-    closeMenu.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navMenu.hidden = true;
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') && 
+            !navMenu.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+            toggleMenu();
+        }
     });
 
-    // Hide forms initially
-    postForm.style.display = 'none';
-    projectForm.style.display = 'none';
-
-    // Load existing posts and projects from backend
-    async function loadPosts() {
-        try {
-            const res = await fetch('/api/posts', {
-                credentials: 'include', // Pastikan cookie dikirim
-            });
-            if (res.status === 401) {
-                postsContainer.innerHTML = '<p>Please login to view posts.</p>';
-                return;
-            }
-            const posts = await res.json();
-            postsContainer.innerHTML = '';
-            posts.forEach(post => {
-                const article = document.createElement('article');
-                article.innerHTML = `
-                    <h3>${post.title}</h3>
-                    <p>${post.content}</p>
-                    <small>Posted on: ${new Date(post.date).toLocaleDateString()}</small>
-                `;
-                postsContainer.appendChild(article);
-            });
-        } catch (err) {
-            console.error('Failed to load posts', err);
-        }
-    }
-
-    async function loadProjects() {
-        try {
-            const res = await fetch('/api/projects', { credentials: 'include' });
-            if (res.status === 401) {
-                // Unauthorized, do not load projects
-                projectsContainer.innerHTML = '<p>Please login to view projects.</p>';
-                return;
-            }
-            const projects = await res.json();
-            projectsContainer.innerHTML = '';
-            projects.forEach(project => {
-                const card = document.createElement('div');
-                card.classList.add('project-card');
-                card.innerHTML = `
-                    <h3>${project.title}</h3>
-                    <p>${project.description}</p>
-                    ${project.link ? `<p><a href="${project.link}" target="_blank" rel="noopener noreferrer">Project Link</a></p>` : ''}
-                    ${project.image ? `<img src="${project.image}" alt="${project.title} preview" style="max-width: 100%; border-radius: 8px; margin-top: 10px;" />` : ''}
-                `;
-                projectsContainer.appendChild(card);
-            });
-        } catch (err) {
-            console.error('Failed to load projects', err);
-        }
+    // Display posts
+    function displayPosts() {
+        postsContainer.innerHTML = '';
+        posts.forEach(post => {
+            const article = document.createElement('article');
+            article.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.content}</p>
+                <small>Posted on: ${new Date(post.date).toLocaleDateString()}</small>
+            `;
+            postsContainer.appendChild(article);
+        });
     }
 
     // Submit new post
-    postForm.addEventListener('submit', async (e) => {
+    postForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const title = postForm.postTitle.value.trim();
         const content = postForm.postContent.value.trim();
+        
         if (!title || !content) {
             alert('Please fill in both title and content.');
             return;
         }
-        try {
-            const res = await fetch('/api/posts', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ title, content }),
-            });
-            if (res.ok) {
-                postForm.reset(); // Reset form setelah submit
-                loadPosts();
-            } else if (res.status === 401) {
-                alert('Unauthorized. Please login.');
-            } else {
-                alert('Failed to add post.');
-            }
-        } catch (err) {
-            alert('Error adding post.');
-            console.error(err);
-        }
+
+        const newPost = {
+            title,
+            content,
+            date: new Date().toISOString()
+        };
+
+        posts.unshift(newPost);
+        localStorage.setItem('blogPosts', JSON.stringify(posts));
+        postForm.reset();
+        displayPosts();
     });
 
-    // Submit new project
-    projectForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const title = projectForm.projectTitle.value.trim();
-        const description = projectForm.projectDescription.value.trim();
-        const link = projectForm.projectLink.value.trim();
-        const imageFile = projectForm.projectImageUpload.files[0];
-        if (!title || !description) {
-            alert('Please fill in both title and description.');
-            return;
-        }
-        try {
-            const formData = new FormData();
-            formData.append('title', title);
-            formData.append('description', description);
-            formData.append('link', link);
-            if (imageFile) {
-                formData.append('projectImageUpload', imageFile);
-            }
-            const res = await fetch('/api/projects', {
-                method: 'POST',
-                credentials: 'include',
-                body: formData
-            });
-            if (res.ok) {
-                projectForm.reset();
-                loadProjects();
-            } else if (res.status === 401) {
-                alert('Unauthorized. Please login.');
+    // Initial display
+    displayPosts();
+
+    // Intersection Observer for fade effects
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
             } else {
-                alert('Failed to add project.');
+                // Optional: remove class when section is out of view
+                // entry.target.classList.remove('is-visible');
             }
-        } catch (err) {
-            alert('Error adding project.');
-            console.error(err);
-        }
+        });
+    }, observerOptions);
+
+    // Observe all sections except home
+    document.querySelectorAll('section:not(#home)').forEach(section => {
+        section.classList.add('fade-section');
+        observer.observe(section);
     });
-
-    // Handle login
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const username = loginForm.username.value.trim();
-        const password = loginForm.password.value.trim();
-        if (!username || !password) {
-            alert('Please enter username and password.');
-            return;
-        }
-        // Test authentication by fetching posts with basic auth header
-        try {
-            const res = await fetch('/api/posts', {
-                headers: {
-                    'Authorization': 'Basic ' + btoa(username + ':' + password)
-                }
-            });
-            if (res.ok) {
-                // Authentication successful
-                loginContainer.style.display = 'none';
-                postForm.style.display = 'block';
-                projectForm.style.display = 'block';
-
-                // Set global fetch to include auth header
-                window.authHeader = 'Basic ' + btoa(username + ':' + password);
-
-                // Override fetch to include auth header
-                const originalFetch = window.fetch;
-                window.fetch = (input, init = {}) => {
-                    init.headers = init.headers || {};
-                    init.headers['Authorization'] = window.authHeader;
-                    return originalFetch(input, init);
-                };
-
-                loadPosts();
-                loadProjects();
-            } else {
-                alert('Invalid username or password.');
-            }
-        } catch (err) {
-            alert('Error during login.');
-            console.error(err);
-        }
-    });
-
-    // Initial load without authentication
-    loadPosts();
-    loadProjects();
 });
