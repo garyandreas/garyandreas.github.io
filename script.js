@@ -106,4 +106,33 @@ document.addEventListener('DOMContentLoaded', () => {
         section.classList.add('fade-section');
         observer.observe(section);
     });
+
+    // Project link and preview functionality
+    const projectLink = document.getElementById('projectLink');
+    const projectPreview = document.getElementById('projectPreview');
+    
+    // Function to update project preview
+    function updateProjectPreview(link) {
+        if (link) {
+            // Try to get preview image from link
+            fetch(`https://api.urlmeta.org/?url=${encodeURIComponent(link)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.image) {
+                        projectPreview.src = data.image;
+                    } else {
+                        projectPreview.src = 'path/to/default/image.jpg'; // Set a default image
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching preview:', error);
+                    projectPreview.src = 'path/to/default/image.jpg'; // Set a default image on error
+                });
+            
+            projectLink.href = link;
+        }
+    }
+
+    // Example usage - replace with your actual project link
+    updateProjectPreview('https://github.com/garyandreas/garyandreas.github.io/blob/main/UTS/LAPORAN%20UTS%20SISTEM%20MULTIMEDIA.pdf');
 });
