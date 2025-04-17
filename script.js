@@ -1,13 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const postForm = document.getElementById('postForm');
-    const postsContainer = document.getElementById('postsContainer');
-    const projectsContainer = document.querySelector('.projects-container');
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     const closeMenu = document.getElementById('close-menu');
-
-    // Store posts in localStorage
-    let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
 
     // Improved menu handling
     const toggleMenu = () => {
@@ -42,46 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMenu();
         }
     });
-
-    // Display posts
-    function displayPosts() {
-        postsContainer.innerHTML = '';
-        posts.forEach(post => {
-            const article = document.createElement('article');
-            article.innerHTML = `
-                <h3>${post.title}</h3>
-                <p>${post.content}</p>
-                <small>Posted on: ${new Date(post.date).toLocaleDateString()}</small>
-            `;
-            postsContainer.appendChild(article);
-        });
-    }
-
-    // Submit new post
-    postForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const title = postForm.postTitle.value.trim();
-        const content = postForm.postContent.value.trim();
-        
-        if (!title || !content) {
-            alert('Please fill in both title and content.');
-            return;
-        }
-
-        const newPost = {
-            title,
-            content,
-            date: new Date().toISOString()
-        };
-
-        posts.unshift(newPost);
-        localStorage.setItem('blogPosts', JSON.stringify(posts));
-        postForm.reset();
-        displayPosts();
-    });
-
-    // Initial display
-    displayPosts();
 
     // Intersection Observer for fade effects
     const observerOptions = {
