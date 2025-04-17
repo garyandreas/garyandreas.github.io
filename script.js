@@ -89,4 +89,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Example usage - replace with your actual project link
     updateProjectPreview('https://github.com/garyandreas/garyandreas.github.io/blob/main/UTS/LAPORAN%20UTS%20SISTEM%20MULTIMEDIA.pdf');
+
+    // Modal functionality
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+    const fontPreviews = document.querySelectorAll('.font-preview');
+
+    fontPreviews.forEach(preview => {
+        preview.addEventListener('click', () => {
+            modal.classList.add('active');
+            modalImg.src = preview.src;
+        });
+    });
+
+    modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Close modal with escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
 });
