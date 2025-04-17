@@ -595,42 +595,49 @@ nav ul li a.active {
 /* Font Sample Styles */
 .text-samples {
     padding: 25px !important;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+}
+
+.text-samples .fonts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    justify-items: center;
+    margin-top: 30px;
 }
 
 .font-sample {
-    margin: 15px 0;
-    padding: 15px;
+    margin: 0;
+    padding: 25px;
     background: rgba(15, 23, 42, 0.6);
     border-radius: 8px;
     border: 1px solid #3b82f6;
-    width: 220px; /* Slightly wider than preview image */
-    display: inline-block;
-    margin-right: 15px;
+    width: 350px;
+    height: 100%;
 }
 
 .font-sample h4 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1.4rem;  /* Increased from 1.2rem */
+    margin-bottom: 12px;
     color: #60a5fa;
+    text-align: center;
 }
 
 .font-preview {
-    width: 190px;  /* 5cm equivalent */
-    height: 150px; /* 4cm equivalent */
+    width: 190px;  /* Unchanged - 5cm equivalent */
+    height: 150px; /* Unchanged - 4cm equivalent */
     object-fit: cover;
     border-radius: 6px;
-    margin: 8px 0;
+    margin: 10px auto; /* Center the image */
+    display: block;
     background: #1e293b;
 }
 
 .font-sample p {
-    font-size: 0.9rem;
-    margin-top: 8px;
-    line-height: 1.4;
+    font-size: 1rem;    /* Increased from 0.9rem */
+    margin-top: 12px;
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 10px;
 }
 
 /* Individual Font Styles */
