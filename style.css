@@ -709,3 +709,15 @@ nav ul li a.active {
 .sourcesanspro h4, .sourcesanspro p { font-family: 'Source Sans Pro', sans-serif; }
 .oswald h4, .oswald p { font-family: 'Oswald', sans-serif; }
 .ubuntu h4, .ubuntu p { font-family: 'Ubuntu', sans-serif; }
+
+.format-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.format-link:hover {
+    color: #60a5fa;
+    text-decoration: underline;
+}
