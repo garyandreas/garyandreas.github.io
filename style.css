@@ -653,6 +653,14 @@ nav ul li a.active {
     padding: 0 10px;
 }
 
+.preview-note {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-style: italic;
+    margin: 5px 0;
+}
+
 /* Modal Styles */
 .modal {
     display: none;
@@ -715,6 +723,8 @@ nav ul li a.active {
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
+    display: inline-block;
+    margin-top: 5px;
 }
 
 .format-link:hover {
