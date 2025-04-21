@@ -4,8 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My Personal Blog</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css" media="all" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Merriweather:wght@400;700&family=PT+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Oswald:wght@400;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .loading {
+            text-align: center;
+            padding: 2em;
+            display: none;
+        }
+        #posts {
+            opacity: 1;
+            visibility: visible;
+            display: block;
+            transition: all 0.5s ease-in-out;
+            transform-origin: top;
+        }
+        #postsContainer {
+            transition: all 0.5s ease-in-out;
+            transform-origin: top;
+        }
+        .section-transition {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -85,9 +112,10 @@
             </div>
         </section>
 
-        <section id="posts">
+        <section id="posts" style="visibility: visible">
             <h2>Recent Posts</h2>
-            <div id="postsContainer">
+            <div class="loading" id="loading">Loading content...</div>
+            <div id="postsContainer" style="opacity: 1; visibility: visible;">
                 <article class="text-samples">
                     <h3>Font Populer</h3>
                     <p>Berikut disajikan 10 font populer beserta penjelasan dan contoh tampilan: </p>
@@ -421,7 +449,7 @@
                         <div class="font-sample divx">
                             <h4>DivX Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/divx">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Populer di era awal video digital, DivX menyediakan kompresi berkualitas tinggi 
@@ -432,7 +460,7 @@
                         <div class="font-sample xvid">
                             <h4>Xvid Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/xvid">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Alternatif open-source untuk DivX, Xvid menawarkan kompresi yang efisien 
@@ -443,7 +471,7 @@
                         <div class="font-sample rmvb">
                             <h4>RMVB Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/rmvb">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>RealMedia Variable Bitrate format ini terkenal dengan kemampuannya menyajikan 
@@ -454,7 +482,7 @@
                         <div class="font-sample m4v">
                             <h4>M4V Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/x-m4v">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Dikembangkan Apple, M4V mendukung DRM dan optimalisasi untuk perangkat iOS, 
@@ -465,7 +493,7 @@
                         <div class="font-sample asf">
                             <h4>ASF Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/x-ms-asf">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Advanced Systems Format dari Microsoft ini dirancang untuk streaming media 
@@ -476,7 +504,7 @@
                         <div class="font-sample threegp">
                             <h4>3GP2 Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/3gpp2">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Dioptimalkan untuk perangkat mobile, 3GP2 menawarkan kompresi yang efisien 
@@ -487,7 +515,7 @@
                         <div class="font-sample mpeg2">
                             <h4>MPEG-2 PS Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mpeg">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Standar untuk DVD-Video, MPEG-2 Program Stream menyediakan kualitas broadcast 
@@ -498,7 +526,7 @@
                         <div class="font-sample dv">
                             <h4>DV Format</h4>
                             <video controls class="video-preview">
-                                <source src="Videos/nakamuravsmagnus.mp4" type="video/x-dv">
+                                <source src="Videos/nakamuravsmagnus.mp4" type="video/mp4">
                                 Your browser does not support the video element.
                             </video>
                             <p>Digital Video format ini populer di kalangan profesional video, menawarkan 
@@ -567,6 +595,6 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
