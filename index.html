@@ -33,9 +33,77 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-animation {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 1.2em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: #2c2c2c;
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #3498db;
+            transition: width 0.3s ease-out;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide main content initially */
+        body > *:not(.loading-screen) {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-animation"></div>
+        <div class="loading-text">Loading...</div>
+        <div class="progress-bar">
+            <div class="progress" id="loadingProgress"></div>
+        </div>
+    </div>
+
 <header>
     <button
         class="hamburger"
@@ -718,5 +786,36 @@
 </div>
 
 <script src="script.js" defer></script>
+<script>
+    // Loading screen logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const loadingScreen = document.getElementById('loadingScreen');
+        const loadingProgress = document.getElementById('loadingProgress');
+        let progress = 0;
+
+        // Simulate loading progress
+        const interval = setInterval(() => {
+            progress += Math.random() * 30;
+            if (progress > 100) progress = 100;
+            loadingProgress.style.width = `${progress}%`;
+
+            if (progress === 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    document.body.style.overflow = 'auto';
+                    // Show main content
+                    document.querySelectorAll('body > *:not(.loading-screen)').forEach(el => {
+                        el.style.opacity = '1';
+                    });
+                    // Remove loading screen after fade out
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 500);
+            }
+        }, 500);
+    });
+</script>
 </body>
 </html>
