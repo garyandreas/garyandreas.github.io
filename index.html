@@ -92,6 +92,68 @@
             opacity: 0;
             transition: opacity 0.5s ease-in;
         }
+        
+        /* Footer styling */
+        footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        footer p {
+            margin: 0;
+        }
+
+        /* Add scroll padding to account for fixed header */
+        html {
+            scroll-padding-top: 80px; /* Adjust this value based on your header height */
+        }
+
+        /* Adjust section spacing */
+        section {
+            padding-top: 20px;
+            margin-top: 40px;
+        }
+
+        /* Ensure sections don't overlap */
+        .hero {
+            margin-top: 0;
+            padding-top: 80px; /* Match header height */
+        }
+
+        /* Adjust header styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #2c3e50; /* Changed from #fff to original dark blue color */
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: #fff; /* Ensure text remains white */
+        }
+
+        /* Adjust main content to account for fixed header */
+        main {
+            padding-top: 60px; /* Adjust based on header height */
+        }
+
+        /* Ensure proper section spacing for blog posts */
+        #posts {
+            padding-top: 40px;
+        }
+
+        #posts h2 {
+            margin-top: 20px;
+        }
+
+        /* Adjust container padding */
+        .container {
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body>
