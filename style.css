@@ -731,3 +731,63 @@ nav ul li a.active {
     color: #60a5fa;
     text-decoration: underline;
 }
+
+/* Contact Links */
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 30px 0;
+    margin: auto 0;  /* This will push the content to vertical center */
+}
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* This centers the entire contact section content */
+    min-height: 100vh;
+}
+
+#contact h2 {
+    margin-top: auto;  /* This will push the heading down */
+    margin-bottom: 40px;  /* Increased space between heading and links */
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #93c5fd;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 15px 25px;
+    border-radius: 8px;
+    background: #0f172a;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+}
+
+.contact-item:hover {
+    transform: translateY(-3px);
+    background: #1e293b;
+    color: #3b82f6;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    width: 30px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .contact-item {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+    
+    .contact-item i {
+        font-size: 1.2rem;
+    }
+}
