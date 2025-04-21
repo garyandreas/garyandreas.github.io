@@ -106,53 +106,40 @@
         footer p {
             margin: 0;
         }
-
-        /* Add scroll padding to account for fixed header */
-        html {
-            scroll-padding-top: 80px; /* Adjust this value based on your header height */
-        }
-
-        /* Adjust section spacing */
+        
+        /* Section spacing fixes */
         section {
-            padding-top: 20px;
-            margin-top: 40px;
+            padding-top: 80px;  /* Increased padding to prevent overlap with header */
+            margin-top: 0;  /* Removed negative margin */
+            scroll-margin-top: 80px; /* Ensures proper scroll positioning */
+            position: relative; /* Add this */
+            scroll-behavior: smooth; /* Add this */
+            min-height: 100vh; /* Restore full height */
         }
-
-        /* Ensure sections don't overlap */
-        .hero {
-            margin-top: 0;
-            padding-top: 80px; /* Match header height */
-        }
-
-        /* Adjust header styles */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #2c3e50; /* Changed from #fff to original dark blue color */
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            color: #fff; /* Ensure text remains white */
-        }
-
-        /* Adjust main content to account for fixed header */
-        main {
-            padding-top: 60px; /* Adjust based on header height */
-        }
-
-        /* Ensure proper section spacing for blog posts */
+        
         #posts {
-            padding-top: 40px;
+            padding-top: 100px; /* Extra padding for blog posts section */
+            min-height: auto; /* Override for posts section */
         }
-
-        #posts h2 {
-            margin-top: 20px;
+        
+        /* Modified section first-of-type */
+        section:first-of-type {
+            padding-top: 20px; /* Reduced padding for first section */
+            min-height: calc(100vh - 20px); /* Adjust for padding */
         }
-
-        /* Adjust container padding */
-        .container {
-            padding-top: 20px;
+        
+        /* Add this to ensure proper section separation */
+        .container > section {
+            min-height: auto;
+            margin-bottom: 20px;
+        }
+        
+        /* Specific sections that should maintain full height */
+        #home, #about, #skills {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
     </style>
 </head>
